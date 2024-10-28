@@ -4,7 +4,7 @@
 
 
 
-## Installation
+## MUJAHIDIN ALJAWARI (L200220177)
 
 to run the code:
 
