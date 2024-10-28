@@ -1,43 +1,53 @@
 from metaflow import FlowSpec, step
 
-class KuliahInformatikaFlow(FlowSpec):
-    
+class AttendingClassesFlow(FlowSpec):
+
     @step
     def start(self):
-        # Inisialisasi mahasiswa
-        self.nama_mahasiswa = "MUjahidin Aljawari"
-        self.spp_dibayar = False
-        print(f"Memulai alur untuk mahasiswa: {self.nama_mahasiswa}")
-        self.next(self.bayar_spp)
+        self.name = "aljawari"
+        print(f"Memulai proses mengikuti kuliah informatika untuk {self.name}.")
+        self.next(self.pay_tuition)
 
     @step
-    def bayar_spp(self):
-        # Langkah untuk membayar SPP
-        self.spp_dibayar = True
-        print(f"{self.nama_mahasiswa} telah membayar SPP.")
-        self.next(self.mengikuti_kuliah)
-
-    @step
-    def mengikuti_kuliah(self):
-        # Langkah untuk mengikuti kuliah jika SPP sudah dibayar
-        if not self.spp_dibayar:
-            print(f"{self.nama_mahasiswa} harus membayar SPP terlebih dahulu.")
-            self.next(self.end)
+    def pay_tuition(self):
+        pembayaran = True
+        if pembayaran == True:
+            self.tuition_paid = True
+            print("Biaya SPP telah dibayar.")
         else:
-            print(f"{self.nama_mahasiswa} mengikuti kuliah Informatika.")
-            self.next(self.dapatkan_nilai)
+            self.tuition_paid = False
+            print("Biaya SPP belum dibayar.")
+        self.next(self.attend_lectures)
 
     @step
-    def dapatkan_nilai(self):
-        # Langkah untuk memberikan nilai akhir
-        self.nilai_akhir = "A"
-        print(f"{self.nama_mahasiswa} mendapatkan nilai akhir: {self.nilai_akhir}")
+    def attend_lectures(self):
+        if not self.tuition_paid:
+            print("Tidak dapat mengikuti kuliah tanpa membayar biaya SPP.")
+            return
+        print(f"{self.name} sedang mengikuti kuliah...")
+        self.next(self.submit_assignments)
+
+    @step
+    def submit_assignments(self):
+        print("Mengumpulkan tugas...")
+        self.next(self.take_exams)
+
+    @step
+    def take_exams(self):
+        print("Mengikuti ujian...")
+        self.next(self.receive_grades)
+
+    @step
+    def receive_grades(self):
+        print("Menerima nilai...")
+        self.final_grade = "A"  # Simulasi perhitungan nilai
+        print(f"Nilai akhir {self.name} diterima: {self.final_grade}")
         self.next(self.end)
 
     @step
     def end(self):
-        # Akhir dari alur kerja
-        print("Alur kerja selesai untuk mahasiswa:", self.nama_mahasiswa)
+        print("Proses selesai.")
 
-if __name__ == "__main__":
-    KuliahInformatikaFlow()
+if __name__ == '__main__':
+    AttendingClassesFlow()
+

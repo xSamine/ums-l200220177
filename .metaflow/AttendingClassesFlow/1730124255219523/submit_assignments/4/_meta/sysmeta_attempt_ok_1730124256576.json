@@ -1,0 +1,1 @@
+{"flow_id": "AttendingClassesFlow", "run_number": "1730124255219523", "step_name": "submit_assignments", "task_id": "4", "field_name": "attempt_ok", "type": "internal_attempt_status", "value": "True", "tags": ["attempt_id:0"], "user_name": "jovary", "ts_epoch": 1730124256576}
