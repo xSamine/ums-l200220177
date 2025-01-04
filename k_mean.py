@@ -9,7 +9,7 @@ class ManyKmeansFlow(FlowSpec):
     @step
     def start(self):
         try:
-            df = pd.read_csv('cleaned_data_group.csv', encoding='utf-8')
+            df = pd.read_csv('data_cleaned.csv', encoding='utf-8')
             texts = df['message'].fillna('').tolist()
             vectorizer = TfidfVectorizer(stop_words='english', max_features=1000)
             self.data = vectorizer.fit_transform(texts).toarray()
